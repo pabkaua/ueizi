@@ -5,12 +5,17 @@
 #ifndef ALERTAS_H
 #define ALERTAS_H
 
-typedef struct {
+typedef struct alerta {
+    int user;
+    int time;
     int br;
-    float km;
+    float km; 
     char tipo;
     int upvotes;
+    
+    Alerta* proximo;
 } Alerta;
+
 
 typedef struct {
     Alerta* dados;
