@@ -10,7 +10,7 @@ typedef struct alerta {
     char tipo;
     int upvotes;
     
-    Alerta* proximo;
+    struct alerta* proximo;
 } Alerta;
 
 // ------------------------------------
@@ -25,100 +25,107 @@ float agruparKm(float km) {
 
 void adicionarOuIncrementar(Alerta structAlerta, Alerta** vetor, int pos) {
     structAlerta.km = agruparKm(structAlerta.km);
+    Alerta* atual = vetor[pos];
 
-    Alerta* structAtual;
-    structAtual = *vetor;
-    // em construção...
-
-// analisando e tentando entender se há algo para aproveitar
-/* 
-    for (int i = 0; i < lista->tamanho; i++) {
-        if (lista->dados[i].br == br &&
-            lista->dados[i].km == km &&
-            lista->dados[i].tipo == tipo) {
-            lista->dados[i].upvotes++;
+    while (atual != NULL){
+        if (atual->br == structAlerta.br &&
+            atual->km == structAlerta.km &&
+            atual->tipo == structAlerta.tipo){
+            atual->upvotes++;
             return;
         }
+        atual = atual->proximo;
     }
 
-    if (lista->tamanho == lista->capacidade) {
-        lista->capacidade = lista->capacidade == 0 ? 4 : lista->capacidade * 2;
-        lista->dados = realloc(lista->dados, lista->capacidade * sizeof(Alerta));
-        if (lista->dados == NULL) {
-            perror("Erro ao redimensionar lista");
-            exit(1);
-        }
+    Alerta* novo = (Alerta*)malloc(sizeof(struct alerta));
+    if (novo == NULL){
+        perror("Erro ao alocar memória");
+        exit(1);
     }
 
-    lista->dados[lista->tamanho].br = br;
-    lista->dados[lista->tamanho].km = km;
-    lista->dados[lista->tamanho].tipo = tipo;
-    lista->dados[lista->tamanho].upvotes = 1;
-
-    lista->tamanho++;
-*/
+    *novo = structAlerta;
+    novo->upvotes = 1;
+    novo->proximo = vetor[pos];
+    vetor[pos] = novo;
 }
 
 void linhaParaLista(char caminho[], Alerta** vetor){
 
     FILE* pontArq = fopen(caminho, "r");
-    if(pontArq == NULL) printf("Impossível abrir arquivo!\n");
-    else{
+    if(pontArq == NULL){
+        printf("Impossível abrir arquivo!\n");
+        return;
+    }
 
-        char cabecalho[256];
-        int user, time, br;
-        float km;
-        char tipo;
 
-        fgets(cabecalho, sizeof(cabecalho), pontArq);
+    char cabecalho[256];
+    int user, time, br;
+    float km;
+    char tipo;
+
+    fgets(cabecalho, sizeof(cabecalho), pontArq);
         
-        while(fscanf("%d;%d;%d;%f;%c", &user, &time, &br, &km, &tipo) == 5){
+    while(fscanf(pontArq,"%d;%d;%d;%f;%c", &user, &time, &br, &km, &tipo) == 5){
 
-            Alerta structAlerta;
+        Alerta structAlerta;
 
-            structAlerta.user = user;
-            structAlerta.time = time;
-            structAlerta.br = br;
-            structAlerta.km = km;
-            structAlerta.tipo = tipo;
+        structAlerta.user = user;
+        structAlerta.time = time;
+        structAlerta.br = br;
+        structAlerta.km = km;
+        structAlerta.tipo = tipo;
+        structAlerta.proximo = NULL;
 
-            int pos = structAlerta.br % 100;
+        int pos = br % 100;
 
-            adicionarOuIncrementar(structAlerta, vetor, pos);
+        adicionarOuIncrementar(structAlerta, vetor, pos);
+    }
+    fclose(pontArq);
+}
+
+void imprimirHash(Alerta* vetor[], int tamanho){
+    for (int i = 0; i < tamanho; i++){
+        Alerta* atual = vetor[i];
+        while (atual != NULL){
+            printf("BR%d km %.1f tipo %c upvotes %d\n",
+                    atual->br,atual->km,atual->tipo,atual->upvotes);
+            atual = atual->proximo;
         }
     }
 }
 
+
 // ------------------------------------
 int main(){
-    int escolha = 0;
+    int escolha = -1;
     Alerta* hash[100];
+    for(int i = 0; i < 100; i++) hash[i] = NULL;
 
     while(escolha != 0){
-        printf("1 - \n");
-        printf("2 - \n");
+        printf("1 - Ler arquivo\n");
+        printf("2 - Mostrar Hash\n");
         printf("3 - \n");
         printf("4 - \n");
         printf("0 - SAIR\n");
 
-        scanf("%d", escolha);
+        scanf("%d", &escolha);
         getchar();
 
         switch (escolha){
         case 1:
-            /* code */
+            linhaParaLista("alertas_100000_1.csv", hash);
             break;
 
         case 2:
-            /* code */
+            imprimirHash(hash, 100);
             break;
 
         case 3:
-            /* code */
+
             break;
 
         case 4:
-            /* code */
+
             break;
 
         case 0:
