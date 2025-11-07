@@ -6,10 +6,10 @@ typedef struct alerta {
     int user;
     int time;
     int br;
-    float km; 
+    float km;
     char tipo;
     int upvotes;
-    
+
     struct alerta* proximo;
 } Alerta;
 
@@ -37,7 +37,7 @@ void adicionarOuIncrementar(Alerta structAlerta, Alerta** vetor, int pos) {
         atual = atual->proximo;
     }
 
-    Alerta* novo = (Alerta*)malloc(sizeof(struct alerta));
+    Alerta* novo = malloc(sizeof(Alerta));
     if (novo == NULL){
         perror("Erro ao alocar memória");
         exit(1);
@@ -64,7 +64,7 @@ void linhaParaLista(char caminho[], Alerta** vetor){
     char tipo;
 
     fgets(cabecalho, sizeof(cabecalho), pontArq);
-        
+
     while(fscanf(pontArq,"%d;%d;%d;%f;%c", &user, &time, &br, &km, &tipo) == 5){
 
         Alerta structAlerta;
@@ -113,11 +113,11 @@ int main(){
 
         switch (escolha){
         case 1:
-            linhaParaLista("alertas_100000_1.csv", hash);
+            linhaParaLista("alertas_1000_1.csv", hash);
+            imprimirHash(hash, 100);
             break;
 
         case 2:
-            imprimirHash(hash, 100);
             break;
 
         case 3:
@@ -131,7 +131,7 @@ int main(){
         case 0:
             escolha = 0;
             break;
-        
+
         default:
             printf("Digite um valor válido!\n");
             break;
