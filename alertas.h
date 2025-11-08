@@ -13,22 +13,12 @@ typedef struct alerta {
     char tipo;
     int upvotes;
     
-    Alerta* proximo;
+    struct alerta* proximo;
 } Alerta;
 
-
-typedef struct {
-    Alerta* dados;
-    int tamanho;
-    int capacidade;
-} ListaAlertas;
-
-void inicializarLista(ListaAlertas *l);
-void liberarLista(ListaAlertas *l);
-
-int carregarCSV(const char *caminho, ListaAlertas *lista);
+int carregarCSV(const char *caminho, Alerta **hash);
 
 float agruparKm(float km);
-void adicionarOuIncrementar(ListaAlertas *lista, int br, float km, char tipo);
-
+void adicionarOuIncrementar(Alerta structAlerta, Alerta** vetor, int pos);
+void imprimirHash(Alerta* vetor[], int tamanho);
 #endif
