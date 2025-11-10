@@ -1,7 +1,3 @@
-//
-// Criado por joaogt01 em 03/11/2025.
-//
-
 #ifndef ALERTAS_H
 #define ALERTAS_H
 
