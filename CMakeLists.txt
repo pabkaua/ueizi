@@ -6,4 +6,6 @@ set(CMAKE_C_STANDARD 99)
 add_executable(ueizi
         main.c
         arquivo.c
-        alertas.c)
+        alertas.c
+        relatorios.c
+        persistencia.c)
