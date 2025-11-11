@@ -26,9 +26,22 @@ int main(){
         getchar();
 
         switch (escolha){
-        case 1:
-            linhaParaLista("alertas_1000_1.csv", hash);
-            break;
+            case 1: {
+                int quantidade;
+                printf("Quantos arquivos carregar? ");
+                scanf("%d", &quantidade);
+                getchar();
+                for (int i = 0; i < quantidade; i++) {
+                    char nome[200];
+
+                    printf("Digite o nome do arquivo CSV: ", i+1);
+                    scanf("%s", nome);
+                    getchar();
+                    linhaParaLista(nome, hash);
+                }
+                break;
+            }
+
 
         case 2:
             imprimirHash(hash, 100);
