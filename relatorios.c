@@ -59,18 +59,18 @@ void gerarRelatorioTipos(Alerta* hash[], int tamanho) {
     }
 
     fclose(file);
-    printf("\n✅ Relatório gerado\n");
+    printf("\nRelatorio gerado\n");
 }
 
 void imprimirRelatorioPorBR() {
     FILE* file = fopen("alertas_por_br.csv", "r");
     if (!file) {
-        printf("Relatório alertas_por_br.csv não encontrado.\n");
+        printf("Relatorio de -alertas_por_br.csv- não encontrado.\n");
         return;
     }
 
     char linha[256];
-    printf("\n RELATÓRIO: ALERTAS POR BR E TRECHO \n");
+    printf("\n Relatorio de alertas por br e trecho \n");
 
     while (fgets(linha, sizeof(linha), file)) {
         printf("%s", linha);
@@ -82,12 +82,12 @@ void imprimirRelatorioTipos() {
 
     FILE* file = fopen("alertas_br_todas.csv", "r");
     if (!file) {
-        printf("Relatório alertas_br_todas.csv não encontrado.\n");
+        printf("Relatorio de -alertas_br_todas.csv- nao encontrado.\n");
         return;
     }
 
     char linha[256];
-    printf("\n RELATÓRIO: ALERTAS POR TIPO \n");
+    printf("\n Relatorio de alertas por tipo \n");
 
     while (fgets(linha, sizeof(linha), file)) {
         printf("%s", linha);

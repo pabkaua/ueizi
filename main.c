@@ -77,7 +77,7 @@ int main(){
             break;
         
         default:
-            printf("Digite um valor válido!\n");
+            printf("Digite um valor valido!\n");
             break;
         }
     }

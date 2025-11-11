@@ -28,7 +28,7 @@ void adicionarOuIncrementar(Alerta structAlerta, Alerta** vetor, int pos) {
 
     Alerta* novo = malloc(sizeof(Alerta));
     if (novo == NULL) {
-        perror("Erro ao alocar memória");
+        perror("Erro ao alocar memoria");
         exit(1);
     }
 

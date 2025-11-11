@@ -4,7 +4,7 @@
 void linhaParaLista(char caminho[], Alerta** vetor) {
     FILE* pontArq = fopen(caminho, "r");
     if (pontArq == NULL) {
-        printf("Impossível abrir arquivo!\n");
+        printf("Impossivel abrir arquivo!\n");
         return;
     }
 
