@@ -16,7 +16,7 @@ void gerarRelatorioPorBr(Alerta* hash[], int tamanho, int br, float ini, float f
 
     while(atual != NULL) {
         if (atual->br == br && atual->km >= ini && atual->km <= fim) {
-            fprintf(file, "%d,%.1f,%c,%d\n", atual->br, atual->km, atual->tipo, atual->upvotes);
+            fprintf(file, "%d;%.1f;%c;%d\n", atual->br, atual->km, atual->tipo, atual->upvotes);
         }
         atual = atual->proximo;
     }

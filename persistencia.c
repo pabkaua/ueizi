@@ -35,7 +35,7 @@ void carregarBase(Alerta* hash[], int tamanho) {
     char tipo;
 
     while (fscanf(file, "%d;%f;%c;%d", &br, &km, &tipo, &up) == 4) {
-        for (int i=0; i < tamanho; i++) {
+        for (int i=0; i < up; i++) {
             Alerta temp = {0,0,br,km,tipo,1,NULL};
             int pos = br % tamanho;
             adicionarOuIncrementar(temp, hash, pos);
